@@ -7,6 +7,7 @@
     <tr>
       <th>Name</th>
       <th>Strains</th>
+      <th>Score</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,15 +18,18 @@
         <td><strong><%= wine.name %></strong></td>
         <td><%= wine.strains.order(:name).map{|s| "#{s.name} (#{wine.getPercentageByStrainId(s.id)}%)"}.join(" | ") %>
         </td>
-        
+        <td><strong><%= wine.score %></strong></td>
+        <% if current_user.admin?%>
         <td><%= link_to 'Show', wine %></td>
         <td><%= link_to 'Edit', edit_wine_path(wine) %></td>
         <td><%= link_to 'Destroy', wine, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%end%>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Wine', new_wine_path %>
+<% if current_user.admin?%>
+  <%= link_to 'New Wine', new_wine_path %>
+  <%end%>

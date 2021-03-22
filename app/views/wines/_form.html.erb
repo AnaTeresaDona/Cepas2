@@ -30,6 +30,11 @@
     <%end%>
   </div>
 
+  <div class="field">
+    <%= form.label :score %>
+    <%= form.number_field :score, in: 1..100, step: 1 %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
