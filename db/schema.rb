@@ -10,7 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_22_212652) do
+ActiveRecord::Schema.define(version: 2021_03_22_215215) do
+
+  create_table "job_titles", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "magazines", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "oenologist_job_title_magazines", force: :cascade do |t|
+    t.integer "oenologist_id", null: false
+    t.integer "job_title_id", null: false
+    t.integer "magazine_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["job_title_id"], name: "index_oenologist_job_title_magazines_on_job_title_id"
+    t.index ["magazine_id"], name: "index_oenologist_job_title_magazines_on_magazine_id"
+    t.index ["oenologist_id"], name: "index_oenologist_job_title_magazines_on_oenologist_id"
+  end
+
+  create_table "oenologist_wines", force: :cascade do |t|
+    t.integer "oenologist_id", null: false
+    t.integer "wine_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["oenologist_id"], name: "index_oenologist_wines_on_oenologist_id"
+    t.index ["wine_id"], name: "index_oenologist_wines_on_wine_id"
+  end
+
+  create_table "oenologists", force: :cascade do |t|
+    t.string "name"
+    t.integer "age"
+    t.string "nationality"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "strains", force: :cascade do |t|
     t.string "name"
@@ -49,6 +89,11 @@ ActiveRecord::Schema.define(version: 2021_03_22_212652) do
     t.integer "score"
   end
 
+  add_foreign_key "oenologist_job_title_magazines", "job_titles"
+  add_foreign_key "oenologist_job_title_magazines", "magazines"
+  add_foreign_key "oenologist_job_title_magazines", "oenologists"
+  add_foreign_key "oenologist_wines", "oenologists"
+  add_foreign_key "oenologist_wines", "wines"
   add_foreign_key "wine_strains", "strains"
   add_foreign_key "wine_strains", "wines"
 end
