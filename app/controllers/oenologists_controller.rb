@@ -25,7 +25,7 @@ class OenologistsController < ApplicationController
 
     respond_to do |format|
       if @oenologist.save
-        @oenologist.set_references(params[:job_titles])
+        @oenologist.set_references(params[:job_titles]) #Se trabaja una referencia en otra tabla (job_title). set_references es un método creado en el modelo de oenologist que encuentra las referencias en los modelos y las crea en el modelo conjunto ojmm
         format.html { redirect_to @oenologist, notice: "Oenologist was successfully created." }
         format.json { render :show, status: :created, location: @oenologist }
       else
