@@ -14,6 +14,7 @@ class Oenologist < ApplicationRecord
 
         arr_jobs.each do |m, jobs|
             #if m != ''
+            arr_jobs = arr_jobs.reject{ |m| m.empty? }
             jobs = jobs.reject{ |j| j.empty? }
             
             jobs.each do |j|
